@@ -9,17 +9,30 @@
     <title>Ecotrack</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
 </head>
 
 <body>
 <header>
-    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="images/co2-footprint-favicon.ico" alt="Logo" width="30"
-                     class="d-inline-block align-text-top">
-                Ecotrack
-            </a>
+            <a class="navbar-brand d-flex align-items-center" href="#"><img src="images/co2-footprint-favicon.ico"
+                                                                            alt="Logo" width="30"
+                                                                            class="d-inline-block align-text-top">Ecotrack</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+                    aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarToggler">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    <!-- TODO: Add more pages and change active status -->
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">&Uuml;ber mich</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Kontakt</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 </header>
@@ -28,12 +41,76 @@
 <!-- TODO: Fix Margin top -->
 <main class="container" style="margin-top:80px">
     <div class="row">
+        <!-- TODO: Add Page Navigation -->
         <div class="col-lg-4 col-sm-12">
             <p>test1</p>
         </div>
 
         <div class="col-lg-8 col-sm-12">
-            <p>test2</p>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        data-bs-auto-close="outside"
+                        aria-expanded="false">
+                    L&auml;nderwahl
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item"
+                           style="color: transparent ;background-color: transparent;"
+                           href="#"><input
+                            class="form-control"
+                            id="myInput"
+                            type="text"
+                            placeholder="Search.."></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Alles ausw&auml;hlen
+                                </label>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                </ul>
+            </div>
+
+            <table class="table" id="CO2DataTable">
+                <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Country</th>
+                    <th onclick="sortTable(1)">Name</th>
+                    <th onclick="sortTable(2)">Age</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Nilesh</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>SpeakLouder</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Raut</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Dev</td>
+                    <td>43</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </main>
@@ -50,15 +127,6 @@
     </footer>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
-<script src="script.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
