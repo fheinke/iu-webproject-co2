@@ -3,11 +3,15 @@ import json
 from names_generator import generate_name
 
 
-countries = ["Andorra", "Vereinigte Arabische Emirate", "Afghanistan", "Antigua und Barbuda", "Anguilla", "Albanien", "Armenien", "Niederländische Antillen", "Angola", "Antarktis", "Argentinien", "Amerikanisch-Samoa", "Österreich", "Australien", "Aruba", "Aserbaidschan", "Bosnien und Herzegowina", "Barbados", "Bangladesch", "Belgien", "Burkina Faso", "Bulgarien", "Bahrain", "Burundi", "Benin", "Bermuda", "Brunei Darussalam", "Bolivien", "Brasilien", "Bahamas", "Bhutan", "Bouvetinsel", "Botsuana", "Belarus", "Belize", "Kanada", "Kokosinseln (auch Keelinginseln)", "Kongo (Demokratische Republik)", "Zentralafrikanische Republik", "Kongo (Republik)", "Schweiz", "Côte d'Ivoire", "Cookinseln", "Chile", "Kamerun", "China", "Kolumbien", "Costa Rica", "Kuba", "Cabo Verde", "Weihnachtsinsel", "Zypern", "Tschechien", "Deutschland", "Dschibuti", "Dänemark", "Dominica", "Dominikanische Republik", "Algerien", "Ecuador", "Estland", "Ägypten", "Westsahara", "Eritrea", "Spanien", "Äthiopien", "Finnland", "Fidschi", "Falklandinseln (Malwinen)", "Mikronesien", "Färöer", "Frankreich", "Gabun", "Vereinigtes Königreich", "Grenada", "Georgia", "Französisch-Guayana", "Guernsey", "Ghana", "Gibraltar", "Grönland", "Gambia", "Guinea", "Guadeloupe", "Äquatorialguinea", "Griechenland", "Südgeorgien und die Südlichen Sandwichinseln", "Guatemala", "Guam", "Guinea-Bissau", "Guyana", "Gazastreifen", "Hongkong", "Heard und die McDonaldinseln", "Honduras", "Kroatien", "Haiti", "Ungarn", "Indonesien", "Irland", "Israel", "Isle of Man", "Indien", "Britisches Territorium im Indischen Ozean", "Irak", "Iran", "Island", "Italien", "Jersey", "Jamaika", "Jordanien", "Japan", "Kenia", "Kirgisistan", "Kambodscha", "Kiribati", "Komoren", "St. Kitts und Nevis", "Nordkorea", "Südkorea", "Kuwait", "Kaimaninseln", "Kasachstan", "Laos", "Libanon", "St. Lucia", "Liechtenstein", "Sri Lanka", "Liberia", "Lesotho", "Litauen", "Luxemburg", "Lettland", "Libyen", "Marokko", "Monaco", "Moldau, Republik", "Montenegro", "Madagaskar", "Marshallinseln", "Nordmazedonien", "Mali", "Myanmar (Burma)", "Mongolei", "Macau", "Nördliche Marianen", "Martinique", "Mauretanien", "Montserrat", "Malta", "Mauritius", "Malediven", "Malawi", "Mexiko", "Malaysia", "Mosambik", "Namibia", "Neukaledonien", "Niger", "Norfolkinsel", "Nigeria", "Nicaragua", "Niederlande", "Norwegen", "Nepal", "Nauru", "Niue", "Neuseeland", "Oman", "Panama", "Peru", "Französisch-Polynesien", "Papua-Neuguinea", "Philippinen", "Pakistan", "Polen", "St. Pierre und Miquelon", "Pitcairninseln", "Puerto Rico", "Palästinensische Autonomiegebiete", "Portugal", "Palau", "Paraguay", "Katar", "Réunion", "Rumänien", "Serbien", "Russland", "Ruanda", "Saudi-Arabien", "Salomonen", "Seychellen", "Sudan", "Schweden", "Singapur", "St. Helena", "Slowenien", "Svalbard und Jan Mayen", "Slowakei", "Sierra Leone", "San Marino", "Senegal", "Somalia", "Suriname", "São Tomé und Príncipe", "El Salvador", "Syrien", "Swasiland", "Turks- und Caicosinseln", "Tschad", "Französische Südgebiete", "Togo", "Thailand", "Tadschikistan", "Tokelau", "Timor-Leste", "Turkmenistan", "Tunesien", "Tonga", "Türkei", "Trinidad und Tobago", "Tuvalu", "Taiwan", "Tansania", "Ukraine", "Uganda", "Kleinere Amerikanische Überseeinseln", "USA", "Uruguay", "Usbekistan", "Vatikanstadt", "St. Vincent und die Grenadinen", "Venezuela", "Britische Jungferninseln", "Amerikanische Jungferninseln", "Vietnam", "Vanuatu", "Wallis und Futuna", "Samoa", "Kosovo", "Jemen", "Mayotte", "Südafrika", "Sambia", "Simbabwe"]
+countries = ["Vereinigte Arabische Emirate",  "Afghanistan",  "Albanien",  "Argentinien",  "Österreich",  "Australien",  "Belgien",  "Brasilien",  "Kanada",  "Schweiz",  "Chile",  "Kamerun",  "China",  "Kolumbien",  "Tschechien",  "Deutschland",  "Dänemark",  "Spanien",  "Finnland",  "Frankreich",  "Vereinigtes Königreich",  "Griechenland",  "Hongkong",  "Ungarn",  "Irland",  "Italien",  "Japan",  "Liechtenstein",  "Monaco",  "Niederlande",  "Norwegen",  "Polen",  "Saudi-Arabien", "Schweden",  "Thailand",  "USA",  "Südafrika"]
 company_types = ["", "GmbH", "AG", "SE", "OHG", "GbR", "ev", "VVaG"]
+
+min_amount_companies_per_country = 2
+max_amount_companies_per_country = 6
 
 
 def main():
+    countries.sort()
     json_data = list()
     for country in countries:
         current_country = dict()
@@ -22,7 +26,7 @@ def main():
 def generate_company_data():
     companies = list()
     total_company_emissions = 0.0
-    for id in range(random.randint(5, 50)):
+    for id in range(random.randint(min_amount_companies_per_country, max_amount_companies_per_country)):
         company_emissions = random.randint(0, 1000000) / 100.0
         total_company_emissions += company_emissions
         
