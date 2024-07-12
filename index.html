@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-bs-theme="light">
 
 <head>
     <meta charset="utf-8">
@@ -10,8 +10,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
 
     <style>
@@ -22,126 +25,138 @@
 </head>
 
 <body>
-<header>
-    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="#"><img src="images/co2-footprint-favicon.ico"
-                                                                            alt="Logo" width="30"
-                                                                            class="d-inline-block align-text-top">Ecotrack</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
-                    aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarToggler">
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <!-- TODO: Add more pages and change active status -->
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">&Uuml;ber mich</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Kontakt</a></li>
-                </ul>
-            </div>
+<header class="navbar navbar-expand-lg bd-navbar bg-body-tertiary sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <!-- TODO: Fix Logo Offset -->
+            <img src="/images/co2-footprint-favicon.ico" alt="Logo" width="30" height="30"
+                 class="d-inline-block align-text-top">
+            Ecotrack
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Kontakt</a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn" id="toggle-color-theme">
+                        <i id="toggle-color-theme-image" class="bi bi-moon-stars-fill"></i>
+                    </button>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
 </header>
 
 <!-- Main Content -->
-<!-- TODO: Fix Margin top -->
-<main class="container" style="margin-top:80px">
-    <div class="row">
-        <!-- TODO: Add Page Navigation -->
-        <div class="col-lg-3 col-sm-12">
-            <p class="h4 text-secondary">Navigation</p>
-            <ul class="nav flex-column">
-                <li class="nav-item"><a
-                        class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                        href="#our-mission">
-                    Unsere Mission
-                </a></li>
-                <li class="nav-item"><a
-                        class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                        href="#co2-data-overview">
-                    CO2 Daten &Uuml;bersicht
-                </a></li>
-            </ul>
-        </div>
-
-        <div class="col-lg-9 col-sm-12">
-            <a class="h1 link-secondary link-underline-opacity-0 link-underline-opacity-75-hover"
-               href="#our-mission"
-               id="our-mission">
-                Unsere Mission
-            </a>
-            <hr>
-            <p>Hallo, wir sind hier für euch</p>
-
-            <br>
-            <a class="h1 link-secondary link-underline-opacity-0 link-underline-opacity-75-hover"
-               href="#co2-data-overview"
-               id="co2-data-overview">
-                CO2 Daten Übersicht
-            </a>
-            <hr>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        data-bs-auto-close="outside"
-                        aria-expanded="false">
-                    L&auml;nderwahl
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item"
-                           style="color: transparent ;background-color: transparent;"
-                           href="#"><input
-                            class="form-control"
-                            id="myInput"
-                            type="text"
-                            placeholder="Suche..."></a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="checkboxCountrySelection"
-                                       checked>
-                                <label class="form-check-label" for="checkboxCountrySelection">Alles
-                                    ausw&auml;hlen</label>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
+<div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+    <main class="container">
+        <div class="row">
+            <!-- TODO: Add Page Navigation -->
+            <div class="col-lg-3 col-sm-12">
+                <p class="h4 text-secondary">Navigation</p>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a
+                            class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                            href="#our-mission">
+                        Unsere Mission
+                    </a></li>
+                    <li class="nav-item"><a
+                            class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                            href="#co2-data-overview">
+                        CO2 Daten &Uuml;bersicht
+                    </a></li>
                 </ul>
             </div>
 
-            <div class="table-responsive">
-                <table class="table table-hover" id="CO2DataTable">
-                    <thead>
-                    <tr>
-                        <th scope="col" onclick="sortTable(0)">Land</th>
-                        <th scope="col" onclick="sortTable(1)">Unternehmen</th>
-                        <th scope="col" onclick="sortTable(2)">Emissionen in MT CO2</th>
-                        <th scope="col" onclick="sortTable(3)">Emissionen in MT CO2 (Land)</th>
-                    </tr>
-                    </thead>
-                </table>
+            <div class="col-lg-9 col-sm-12">
+                <p><a class="h1 link-secondary link-underline-opacity-0 link-underline-opacity-75-hover"
+                      href="#our-mission"
+                      id="our-mission">
+                    Unsere Mission
+                </a></p>
+                <p>Hallo, wir sind hier für euch</p>
+
+                <br>
+                <p><a class="h1 link-secondary link-underline-opacity-0 link-underline-opacity-75-hover"
+                      href="#co2-data-overview"
+                      id="co2-data-overview">
+                    CO2 Daten Übersicht
+                </a></p>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside"
+                            aria-expanded="false">
+                        L&auml;nderwahl
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item"
+                               style="color: transparent ;background-color: transparent;"
+                               href="#"><input
+                                class="form-control"
+                                id="myInput"
+                                type="text"
+                                placeholder="Suche..."></a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value=""
+                                           id="checkboxCountrySelection"
+                                           checked>
+                                    <label class="form-check-label" for="checkboxCountrySelection">Alles
+                                        ausw&auml;hlen</label>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                    </ul>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover" id="CO2DataTable">
+                        <thead>
+                        <tr>
+                            <th scope="col" onclick="sortTable(0)">Land</th>
+                            <th scope="col" onclick="sortTable(1)">Unternehmen</th>
+                            <th scope="col" onclick="sortTable(2)">Emissionen in MT CO2</th>
+                            <th scope="col" onclick="sortTable(3)">Emissionen in MT CO2 (Land)</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-</main>
-
-<!-- Footer -->
-<div class="container sticky-bottom bg-white">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <p class="col-md-4 mb-0 text-body-secondary" id="copyright">&copy; Karl Felix Heinke</p>
-        <ul class="nav col-md-4 justify-content-end">
-            <!-- TODO: Add Data Privacy and Impressum -->
-            <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="#">Datenschutz</a></li>
-            <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="#">Impressum</a></li>
-        </ul>
-    </footer>
+    </main>
 </div>
 
+<!-- Footer -->
+<footer class="bd-footer d-flex flex-wrap justify-content-between align-items-center py-3 my-4 bg-body-tertiary border-top sticky-bottom">
+    <!-- TODO: Fix offset of copyright and links -->
+    <div class="container">
+        <div class="row">
+            <p class="col-md-6 mb-0 text-body-secondary" id="copyright">&copy; Karl Felix Heinke</p>
+            <ul class="nav col-md-6 justify-content-end">
+                <!-- TODO: Add Data Privacy and Impressum -->
+                <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="#">Datenschutz</a></li>
+                <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="#">Impressum</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
 <script src="src/scripts/main.js"></script>
+<script src="src/scripts/colorThemeToggler.js"></script>
 </body>
 </html>
