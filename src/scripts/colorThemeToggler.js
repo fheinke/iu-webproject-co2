@@ -1,3 +1,4 @@
+// At Startup: Check for recent color theme selection
 document.addEventListener("DOMContentLoaded", function () {
     const getStoredTheme = localStorage.getItem('theme')
 
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 }, false);
 
+// On Click of Toggler Button: toggle current color theme
 document.getElementById('toggle-color-theme').addEventListener('click', () => {
     if (document.documentElement.getAttribute('data-bs-theme') === 'light') {
         toggleColorTheme('dark')
@@ -17,6 +19,7 @@ document.getElementById('toggle-color-theme').addEventListener('click', () => {
     }
 })
 
+// Toggle color theme to transferred theme
 function toggleColorTheme(theme) {
     if (theme === 'light') {
         document.documentElement.setAttribute('data-bs-theme', 'light')
