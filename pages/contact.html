@@ -41,10 +41,10 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="">Home</a>
+                        <a class="nav-link" aria-current="page" href="/index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/pages/contact.html">Kontakt</a>
+                        <a class="nav-link active" aria-current="page" href="/pages/contact.html">Kontakt</a>
                     </li>
                     <li class="nav-item">
                         <button class="btn" id="toggle-color-theme">
@@ -65,82 +65,30 @@
                     <ul class="nav flex-column">
                         <li class="nav-item"><a
                                 class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                                href="#our-mission">
-                                Unsere Mission
-                            </a></li>
-                        <li class="nav-item"><a
-                                class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                                href="#co2-data-overview">
-                                CO₂-Daten &Uuml;bersicht
+                                href="#contact">
+                                Kontakt
                             </a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-9 col-sm-12">
                     <p><a class="h1 link-primary link-underline-opacity-0 link-underline-opacity-75-hover"
-                            href="#our-mission" id="our-mission">
-                            Unsere Mission
+                            href="#contact" id="contact">
+                            Kontakt
                         </a></p>
                     <p>
-                        Herzlich willkommen auf der Projektseite <strong>Ecotrack</strong>!<br>
-                        Wir haben es uns zur Mission gemacht, Emissionsdaten über den CO₂-Fußabdruck von Ländern
-                        und
-                        deren Firmen transparent zu veröffentlichen. Uns ist wichtig, dass wir unseren Kindern und deren
-                        Kindern eine gesunde und lebenswerte Welt hinterlassen. Natürlich ist uns bewusst, dass ein
-                        hoher
-                        CO₂-Wert nur eines von vielen Problemen ist, daher wird dieses Projekt in Zukunft
-                        erweitert, um weitere Daten zu veröffentlichen.
+                        Sie haben jederzeit die Möglichkeit, uns auf dem schriftlichen Weg zu kontaktieren. Dafür
+                        verwenden Sie bitte den bereitgestellten Knopf, um ihren standard E-Mail-Client zu verwenden.
                     </p>
                     <p>
-                        Sollten Sie den Wunsch haben, sich bezüglich Verbesserungsvorschlägen, konstruktiver Kritik oder
-                        Ideen weiterer Datenauswertungen an uns zu wenden, verwenden Sie bitte das zur Verfügung
-                        gestellte
-                        Kontaktformular.
+                        Sie können die E-Mail auch verschlüsseln, laden Sie dazu einfach den Public-Key herunter und
+                        importieren ihn in ihren Schlüsselbund.
                     </p>
-
-                    <br>
-                    <p><a class="h1 link-primary link-underline-opacity-0 link-underline-opacity-75-hover"
-                            href="#co2-data-overview" id="co2-data-overview">
-                            CO₂-Daten Übersicht
-                        </a></p>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            data-bs-auto-close="outside" aria-expanded="false">
-                            L&auml;nderwahl
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" style="color: transparent ;background-color: transparent;"
-                                    href="#"><input class="form-control" id="searchCountry" type="text"
-                                        placeholder="Suche..."></a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="checkboxCountrySelection" checked>
-                                        <label class="form-check-label" for="checkboxCountrySelection">Alles
-                                            ausw&auml;hlen</label>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                        </ul>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover" id="CO2DataTable">
-                            <thead>
-                                <tr>
-                                    <th scope="col" onclick="sortTable(0)">Land</th>
-                                    <th scope="col" onclick="sortTable(1)">Unternehmen</th>
-                                    <th scope="col" onclick="sortTable(2)">Emissionen in MT CO₂</th>
-                                    <th scope="col" onclick="sortTable(3)">Emissionen in MT CO₂ (Land)</th>
-                                </tr>
-                            </thead>
-                        </table>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <!-- TODO: remove E-Mail Adress -->
+                        <a href="mailto:felix@heinke.eu" class="btn btn-primary" type="button">Kontakt aufnehmen</a>
+                        <a href="/src/data/key-public.asc" class="btn btn-primary" type="button" download>Public-Key
+                            herunterladen</a>
                     </div>
                 </div>
             </div>
