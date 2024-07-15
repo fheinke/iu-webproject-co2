@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // change copyright date to current year
     document.getElementById("copyright").innerHTML = "&copy; " + new Date().getFullYear() + " Karl Felix Heinke";
 
-    fillCO2DataTable();
+    if (document.title === "Ecotrack") {
+        fillCO2DataTable();
+    }
 }, false);
 
 
@@ -42,11 +44,21 @@ function fillCO2DataTable() {
 
 
 // TODO: Docs got script here: https://www.w3schools.com/howto/howto_js_sort_table.asp
-function sortTable(n) {
+function sortTextTable(n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("CO2DataTable");
     switching = true;
-    dir = "asc";
+    dir = "desc";
+
+    // TODO: Docs: Changes were made here
+    buttonIcons = table.getElementsByTagName("i");
+    for (i = 0; i < buttonIcons.length; i++) {
+        buttonIcon = buttonIcons[i];
+        if (i !== n) {
+            buttonIcons[i].classList = 'bi bi-arrow-down-up';
+        }
+    }
+
     /* Make a loop that will continue until no switching has been done: */
     while (switching) {
         switching = false;
@@ -76,11 +88,18 @@ function sortTable(n) {
             switching = true;
             switchcount++;
         } else {
-            /* If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again. */
-            if (switchcount == 0 && dir == "asc") {
-                dir = "desc";
+            /* If no switching has been done AND the direction is "desc", set the direction to "asc" and run the while loop again. */
+            if (switchcount == 0 && dir == "desc") {
+                dir = "asc";
                 switching = true;
             }
         }
+    }
+    
+    // TODO: Docs: Changes were made here
+    if (dir === "asc") {
+        buttonIcons[n].classList = 'bi bi-arrow-up';
+    } else if (dir === "desc") {
+        buttonIcons[n].classList = 'bi bi-arrow-down';
     }
 }

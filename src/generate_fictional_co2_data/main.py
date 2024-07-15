@@ -4,7 +4,7 @@ from names_generator import generate_name
 
 
 countries = ["Vereinigte Arabische Emirate",  "Afghanistan",  "Albanien",  "Argentinien",  "Österreich",  "Australien",  "Belgien",  "Brasilien",  "Kanada",  "Schweiz",  "Chile",  "Kamerun",  "China",  "Kolumbien",  "Tschechien",  "Deutschland",  "Dänemark",  "Spanien",  "Finnland",  "Frankreich",  "Vereinigtes Königreich",  "Griechenland",  "Hongkong",  "Ungarn",  "Irland",  "Italien",  "Japan",  "Liechtenstein",  "Monaco",  "Niederlande",  "Norwegen",  "Polen",  "Saudi-Arabien", "Schweden",  "Thailand",  "USA",  "Südafrika"]
-company_types = ["", "GmbH", "AG", "SE", "OHG", "GbR", "ev", "VVaG"]
+company_types = ["", "GmbH", "AG", "SE"]
 
 min_amount_companies_per_country = 2
 max_amount_companies_per_country = 6
