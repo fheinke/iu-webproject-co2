@@ -43,8 +43,8 @@ function fillCO2DataTable() {
 }
 
 
-// TODO: Docs got script here: https://www.w3schools.com/howto/howto_js_sort_table.asp
-function sortTextTable(n) {
+// TODO: Docs got script here: https://www.w3schools.com/howto/howto_js_sort_table.asp changed: Elementtype (string, float)
+function sortTable(n, elementType) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("CO2DataTable");
     switching = true;
@@ -66,22 +66,39 @@ function sortTextTable(n) {
         /* Loop through all table rows (except the first, which contains table headers): */
         for (i = 1; i < (rows.length - 1); i++) {
             shouldSwitch = false;
+
             /* Get the two elements you want to compare, one from current row and one from the next: */
             x = rows[i].getElementsByTagName("TD")[n];
             y = rows[i + 1].getElementsByTagName("TD")[n];
+        
             /* Check if the two rows should switch place, based on the direction, asc or desc: */
             if (dir == "asc") {
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
+                if (elementType === "float") {
+                    if (parseFloat(x.innerHTML) > parseFloat(y.innerHTML)) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
                 }
             } else if (dir == "desc") {
-                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
+                if (elementType === "float") {
+                    if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
                 }
             }
         }
+        
         if (shouldSwitch) {
             /* If a switch has been marked, make the switch and mark that a switch has been done: */
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
