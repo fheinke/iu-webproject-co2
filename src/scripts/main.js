@@ -5,60 +5,48 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("copyright").innerHTML = "&copy; " + new Date().getFullYear() + " Karl Felix Heinke";
 
     if (document.title === "Ecotrack") {
-        fetchJsonData('/src/data/fictional_co2_emissions_by_country.json');
+        jsonData = fetchJsonData('/src/data/fictional_co2_emissions_by_country.json');
         fillCO2DataTable();
     }
 }, false);
 
 
-async function fetchJsonData(url, obj) {
+async function fetchJsonData(url) {
     const fetchData = async url => {
         try {
-            const jsonDataRequest = await fetch(url)
-            const data = await jsonDataRequest.json()
-            return data
+            const request = await fetch(url);
+            const response = await request.json();
+            return response;
         } catch (err) {
-            console.error('Could not load data:', err)
-            return null
+            console.error('Could not load data:', err);
+            return null;
         }
     }
 
-    jsonData = await fetchData(url)
+    return await fetchData(url);
 }
 
 
-function fillCO2DataTable() {
-    let table = document.getElementById("CO2DataTable");
+async function fillCO2DataTable() {
+    let tbody = document.createElement('tbody');
 
-    // TODO: remove hardcoded file path
-    fetch("/src/data/fictional_co2_emissions_by_country.json")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
+    await jsonData.then(response => {
+        for (country in response) {
+            const currentCountry = response[country].country;
+            const currentTotalEmissions = response[country].totalEmissions;
+
+            for (company in response[country].companies) {
+                const tr = tbody.appendChild(document.createElement('tr'));
+                tr.appendChild(document.createElement('td')).innerHTML = currentCountry;
+                tr.appendChild(document.createElement('td')).innerHTML = response[country].companies[company].name;
+                tr.appendChild(document.createElement('td')).innerHTML = response[country].companies[company].emissions;
+                tr.appendChild(document.createElement('td')).innerHTML = currentTotalEmissions;
             }
-            return response.json();
-        })
-        .then(countries => {
-            let tbody = document.createElement('tbody');
+        }
+    })
 
-            countries.forEach(country => {
-                const currentCountry = country.country;
-                const currentTotalEmissions = country.totalEmissions;
-
-                country.companies.forEach(company => {
-                    const tr = tbody.appendChild(document.createElement('tr'));
-                    tr.appendChild(document.createElement('td')).innerHTML = currentCountry;
-                    tr.appendChild(document.createElement('td')).innerHTML = company.name;
-                    tr.appendChild(document.createElement('td')).innerHTML = company.emissions;
-                    tr.appendChild(document.createElement('td')).innerHTML = currentTotalEmissions;
-                });
-            });
-
-            table.append(tbody);
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
+    let table = document.getElementById("CO2DataTable");
+    table.append(tbody);
 }
 
 
