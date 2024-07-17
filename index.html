@@ -106,8 +106,7 @@
                     <div class="container d-flex justify-content-end">
                         <div class="col-lg-5">
                             <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Suche" aria-label="Suche">
-                                <button class="btn btn-primary" type="submit">Suche</button>
+                                <input id="input-search-co2data" class="form-control me-2" type="search" placeholder="Suche Land oder Unternehmen" aria-label="Suche" onkeyup="fillCO2DataTable()">
                             </form>
                         </div>
                     </div>
@@ -165,6 +164,7 @@
                                     </th>
                                 </tr>
                             </thead>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>

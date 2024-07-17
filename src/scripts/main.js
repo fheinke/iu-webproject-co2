@@ -1,5 +1,6 @@
 var jsonData;
 
+
 document.addEventListener("DOMContentLoaded", function () {
     // change copyright date to current year
     document.getElementById("copyright").innerHTML = "&copy; " + new Date().getFullYear() + " Karl Felix Heinke";
@@ -30,23 +31,48 @@ async function fetchJsonData(url) {
 async function fillCO2DataTable() {
     let tbody = document.createElement('tbody');
 
+    searchString = document.getElementById('input-search-co2data').value.toLowerCase();
+    console.log(searchString);
+
     await jsonData.then(response => {
         for (country in response) {
             const currentCountry = response[country].country;
             const currentTotalEmissions = response[country].totalEmissions;
 
             for (company in response[country].companies) {
-                const tr = tbody.appendChild(document.createElement('tr'));
-                tr.appendChild(document.createElement('td')).innerHTML = currentCountry;
-                tr.appendChild(document.createElement('td')).innerHTML = response[country].companies[company].name;
-                tr.appendChild(document.createElement('td')).innerHTML = response[country].companies[company].emissions;
-                tr.appendChild(document.createElement('td')).innerHTML = currentTotalEmissions;
+                const currentCompany = response[country].companies[company].name;
+                const currentCompanyEmissions = response[country].companies[company].emissions;
+
+                if (searchString !== "" &&
+                    (
+                        currentCountry.toLowerCase().startsWith(searchString) ||
+                        currentCompany.toLowerCase().startsWith(searchString)
+                    )
+                ) {
+                    const tr = tbody.appendChild(document.createElement('tr'));
+                    tr.appendChild(document.createElement('td')).innerHTML = currentCountry;
+                    tr.appendChild(document.createElement('td')).innerHTML = currentCompany;
+                    tr.appendChild(document.createElement('td')).innerHTML = currentCompanyEmissions;
+                    tr.appendChild(document.createElement('td')).innerHTML = currentTotalEmissions;
+                } else if (searchString === "") {
+                    const tr = tbody.appendChild(document.createElement('tr'));
+                    tr.appendChild(document.createElement('td')).innerHTML = currentCountry;
+                    tr.appendChild(document.createElement('td')).innerHTML = currentCompany;
+                    tr.appendChild(document.createElement('td')).innerHTML = currentCompanyEmissions;
+                    tr.appendChild(document.createElement('td')).innerHTML = currentTotalEmissions;
+                }
             }
         }
     })
 
     let table = document.getElementById("CO2DataTable");
+    table.removeChild(table.getElementsByTagName('tbody')[0]);
     table.append(tbody);
+
+    buttonIcons = table.getElementsByTagName("i");
+    for (i = 0; i < buttonIcons.length; i++) {
+        buttonIcons[i].classList = 'bi bi-arrow-down-up';
+    }
 }
 
 
