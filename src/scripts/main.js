@@ -1,11 +1,30 @@
+var jsonData;
+
 document.addEventListener("DOMContentLoaded", function () {
     // change copyright date to current year
     document.getElementById("copyright").innerHTML = "&copy; " + new Date().getFullYear() + " Karl Felix Heinke";
 
     if (document.title === "Ecotrack") {
+        fetchJsonData('/src/data/fictional_co2_emissions_by_country.json');
         fillCO2DataTable();
     }
 }, false);
+
+
+async function fetchJsonData(url, obj) {
+    const fetchData = async url => {
+        try {
+            const jsonDataRequest = await fetch(url)
+            const data = await jsonDataRequest.json()
+            return data
+        } catch (err) {
+            console.error('Could not load data:', err)
+            return null
+        }
+    }
+
+    jsonData = await fetchData(url)
+}
 
 
 function fillCO2DataTable() {
@@ -70,7 +89,7 @@ function sortTable(n, elementType) {
             /* Get the two elements you want to compare, one from current row and one from the next: */
             x = rows[i].getElementsByTagName("TD")[n];
             y = rows[i + 1].getElementsByTagName("TD")[n];
-        
+
             /* Check if the two rows should switch place, based on the direction, asc or desc: */
             if (dir == "asc") {
                 if (elementType === "float") {
@@ -98,7 +117,7 @@ function sortTable(n, elementType) {
                 }
             }
         }
-        
+
         if (shouldSwitch) {
             /* If a switch has been marked, make the switch and mark that a switch has been done: */
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
@@ -112,7 +131,7 @@ function sortTable(n, elementType) {
             }
         }
     }
-    
+
     // TODO: Docs: Changes were made here
     if (dir === "asc") {
         buttonIcons[n].classList = 'bi bi-arrow-up';
