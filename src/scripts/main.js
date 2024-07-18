@@ -1,155 +1,112 @@
-var jsonData;
+let jsonData;
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Change copyright date to the current year
+    document.getElementById('copyright').innerHTML = '&copy; ' + new Date().getFullYear() + ' Karl Felix Heinke';
 
-document.addEventListener("DOMContentLoaded", function () {
-    // change copyright date to current year
-    document.getElementById("copyright").innerHTML = "&copy; " + new Date().getFullYear() + " Karl Felix Heinke";
-
-    if (document.title === "Ecotrack") {
-        jsonData = fetchJsonData('/src/data/fictional_co2_emissions_by_country.json');
-        fillCO2DataTable();
+    if (document.title === 'Ecotrack') {
+        fetchJsonData('/src/data/fictional_co2_emissions_by_country.json')
+            .then(data => {
+                jsonData = data;
+                fillCO2DataTable();
+            });
     }
 }, false);
 
-
 async function fetchJsonData(url) {
-    const fetchData = async url => {
-        try {
-            const request = await fetch(url);
-            const response = await request.json();
-            return response;
-        } catch (err) {
-            console.error('Could not load data:', err);
-            return null;
-        }
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('HTTP error, status: ' + response.status);
+        return await response.json();
+    } catch (err) {
+        console.error('Could not load data: ' + err);
+        return null;
     }
-
-    return await fetchData(url);
 }
-
 
 async function fillCO2DataTable() {
-    let tbody = document.createElement('tbody');
+    const tbody = document.createElement('tbody');
+    const searchString = document.getElementById('input-search-co2data').value.toLowerCase();
 
-    searchString = document.getElementById('input-search-co2data').value.toLowerCase();
-    console.log(searchString);
-
-    await jsonData.then(response => {
-        for (country in response) {
-            const currentCountry = response[country].country;
-            const currentTotalEmissions = response[country].totalEmissions;
-
-            for (company in response[country].companies) {
-                const currentCompany = response[country].companies[company].name;
-                const currentCompanyEmissions = response[country].companies[company].emissions;
-
-                if (searchString !== "" &&
-                    (
-                        currentCountry.toLowerCase().startsWith(searchString) ||
-                        currentCompany.toLowerCase().startsWith(searchString)
-                    )
-                ) {
-                    const tr = tbody.appendChild(document.createElement('tr'));
-                    tr.appendChild(document.createElement('td')).innerHTML = currentCountry;
-                    tr.appendChild(document.createElement('td')).innerHTML = currentCompany;
-                    tr.appendChild(document.createElement('td')).innerHTML = currentCompanyEmissions;
-                    tr.appendChild(document.createElement('td')).innerHTML = currentTotalEmissions;
-                } else if (searchString === "") {
-                    const tr = tbody.appendChild(document.createElement('tr'));
-                    tr.appendChild(document.createElement('td')).innerHTML = currentCountry;
-                    tr.appendChild(document.createElement('td')).innerHTML = currentCompany;
-                    tr.appendChild(document.createElement('td')).innerHTML = currentCompanyEmissions;
-                    tr.appendChild(document.createElement('td')).innerHTML = currentTotalEmissions;
-                }
-            }
-        }
-    })
-
-    let table = document.getElementById("CO2DataTable");
-    table.removeChild(table.getElementsByTagName('tbody')[0]);
-    table.append(tbody);
-
-    buttonIcons = table.getElementsByTagName("i");
-    for (i = 0; i < buttonIcons.length; i++) {
-        buttonIcons[i].classList = 'bi bi-arrow-down-up';
+    if (!jsonData) {
+        console.error('jsonData is not available');
+        return;
     }
+
+    jsonData.forEach(countryData => {
+        const { country, totalEmissions, companies } = countryData;
+        companies.forEach(companyData => {
+            const { name: companyName, emissions: companyEmissions } = companyData;
+
+            if (searchString === "" || country.toLowerCase().startsWith(searchString) || companyName.toLowerCase().startsWith(searchString)) {
+                const tr = tbody.appendChild(document.createElement('tr'));
+                tr.appendChild(createTableCell(country));
+                tr.appendChild(createTableCell(companyName));
+                tr.appendChild(createTableCell(companyEmissions));
+                tr.appendChild(createTableCell(totalEmissions));
+            }
+        });
+    });
+
+    const table = document.getElementById('CO2DataTable');
+    const oldTbody = table.querySelector('tbody');
+    if (oldTbody) table.removeChild(oldTbody);
+    table.appendChild(tbody);
+
+    resetButtonIcons();
 }
 
+function createTableCell(content) {
+    const td = document.createElement('td');
+    td.innerHTML = content;
+    return td;
+}
 
-// TODO: Docs got script here: https://www.w3schools.com/howto/howto_js_sort_table.asp changed: Elementtype (string, float)
+function resetButtonIcons() {
+    const table = document.getElementById('CO2DataTable');
+    const buttonIcons = table.querySelectorAll('i');
+    buttonIcons.forEach(icon => {
+        icon.classList = 'bi bi-arrow-down-up';
+    });
+}
+
 function sortTable(n, elementType) {
-    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    table = document.getElementById("CO2DataTable");
-    switching = true;
-    dir = "desc";
+    const table = document.getElementById('CO2DataTable');
+    if (!table) return;
 
-    // TODO: Docs: Changes were made here
-    buttonIcons = table.getElementsByTagName("i");
-    for (i = 0; i < buttonIcons.length; i++) {
-        buttonIcon = buttonIcons[i];
-        if (i !== n) {
-            buttonIcons[i].classList = 'bi bi-arrow-down-up';
-        }
-    }
+    const rows = Array.from(table.rows).slice(1);
+    let dir = table.dataset.sortDir === 'asc' ? 'desc' : 'asc';
+    table.dataset.sortDir = dir;
 
-    /* Make a loop that will continue until no switching has been done: */
-    while (switching) {
-        switching = false;
-        rows = table.rows;
-        /* Loop through all table rows (except the first, which contains table headers): */
-        for (i = 1; i < (rows.length - 1); i++) {
-            shouldSwitch = false;
+    updateButtonIcons(n, dir);
 
-            /* Get the two elements you want to compare, one from current row and one from the next: */
-            x = rows[i].getElementsByTagName("TD")[n];
-            y = rows[i + 1].getElementsByTagName("TD")[n];
+    const compare = (a, b) => {
+        const x = a.cells[n].innerText.trim();
+        const y = b.cells[n].innerText.trim();
 
-            /* Check if the two rows should switch place, based on the direction, asc or desc: */
-            if (dir == "asc") {
-                if (elementType === "float") {
-                    if (parseFloat(x.innerHTML) > parseFloat(y.innerHTML)) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                } else {
-                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                }
-            } else if (dir == "desc") {
-                if (elementType === "float") {
-                    if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                } else {
-                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (shouldSwitch) {
-            /* If a switch has been marked, make the switch and mark that a switch has been done: */
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            switchcount++;
+        if (elementType === 'float') {
+            return dir === 'asc' ? parseFloat(x) - parseFloat(y) : parseFloat(y) - parseFloat(x);
         } else {
-            /* If no switching has been done AND the direction is "desc", set the direction to "asc" and run the while loop again. */
-            if (switchcount == 0 && dir == "desc") {
-                dir = "asc";
-                switching = true;
-            }
+            return dir === 'asc' ? x.localeCompare(y) : y.localeCompare(x);
         }
+    };
+
+    rows.sort(compare);
+
+    rows.forEach(row => table.tBodies[0].appendChild(row));
+}
+
+function updateButtonIcons(n, dir) {
+    const table = document.getElementById('CO2DataTable');
+    const buttonIcons = table.getElementsByTagName('i');
+
+    for (let i = 0; i < buttonIcons.length; i++) {
+        buttonIcons[i].classList = 'bi bi-arrow-down-up';
     }
 
-    // TODO: Docs: Changes were made here
-    if (dir === "asc") {
+    if (dir === 'asc') {
         buttonIcons[n].classList = 'bi bi-arrow-up';
-    } else if (dir === "desc") {
+    } else {
         buttonIcons[n].classList = 'bi bi-arrow-down';
     }
 }

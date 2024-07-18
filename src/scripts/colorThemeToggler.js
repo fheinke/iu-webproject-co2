@@ -1,5 +1,5 @@
 // At Startup: Check for recent color theme selection
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
     const getStoredTheme = sessionStorage.getItem('theme')
 
     if (getStoredTheme === null || getStoredTheme === '') {
