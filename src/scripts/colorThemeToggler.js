@@ -1,25 +1,21 @@
 // At Startup: Check for recent color theme selection
 document.addEventListener('DOMContentLoaded', function () {
-    const getStoredTheme = sessionStorage.getItem('theme')
+    const currentColorTheme = sessionStorage.getItem('theme')
 
-    if (getStoredTheme === null || getStoredTheme === '') {
-        console.log('No theme selected');
+    if (currentColorTheme === null || currentColorTheme === '') {
+        console.log('No color theme selected');
         sessionStorage.setItem('theme', 'light');
     } else {
-        toggleColorTheme(getStoredTheme);
+        toggleColorTheme(currentColorTheme);
     }
 }, false);
 
-// On Click of Toggler Button: toggle current color theme
+// On Click of Theme Toggler Button: toggle current color theme
 document.getElementById('toggle-color-theme').addEventListener('click', () => {
-    if (document.documentElement.getAttribute('data-bs-theme') === 'light') {
-        toggleColorTheme('dark')
-    } else {
-        toggleColorTheme('light')
-    }
+    document.documentElement.getAttribute('data-bs-theme') === 'light' ? toggleColorTheme('dark') : toggleColorTheme('light');
 })
 
-// Toggle color theme to transferred theme
+// Toggle color theme to hand over theme
 function toggleColorTheme(theme) {
     if (theme === 'light') {
         document.documentElement.setAttribute('data-bs-theme', 'light')
