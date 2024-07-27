@@ -1,10 +1,12 @@
 let jsonData;
 
+// At Startup: change copyright and fill ecotrack data table
 document.addEventListener('DOMContentLoaded', () => {
     // Change copyright date to the current year
     document.getElementById('copyright').innerHTML = '&copy; ' + new Date().getFullYear() + ' Karl Felix Heinke';
 
-    if (document.title === 'Ecotrack') {
+    // If current page has element with id 'CO2DataTable', fill it with data
+    if (document.getElementById('CO2DataTable') != null) {
         fetchJsonData('/src/data/fictional_co2_emissions_by_country.json')
             .then(data => {
                 jsonData = data;
