@@ -28,7 +28,7 @@ async function fetchJsonData(url) {
 
 async function fillCO2DataTable() {
     const tbody = document.createElement('tbody');
-    const searchString = document.getElementById('input-search-co2data').value.toLowerCase();
+    const searchString = document.getElementById('input-search-co2data').value.toLowerCase().replace(/[^a-z0-9äöü ]/g, '');
 
     if (!jsonData) {
         console.error('jsonData is not available');
